@@ -1,7 +1,7 @@
-import { h, render } from "preact";
-import "preact/devtools";
+var React = require("react");
+var ReactDOM = require("react-dom");
 
-import Excel from "./components/Excel";
+var Excel = require("./components/Excel");
 
 var headers = [
     "Book",
@@ -64,5 +64,6 @@ var data = [
 ];
 
 document.addEventListener("DOMContentLoaded", function(event) {
+    console.log("hi");
 	ReactDOM.render(<Excel headers={headers} initialData={data} />, document.getElementById("excel"));
 });

@@ -1,4 +1,6 @@
-var Excel = React.createClass({
+var React = require("react");
+
+var Excel =  React.createClass({
     displayName: "Excel",
     propTypes: {
         headers: React.PropTypes.arrayOf(
@@ -147,3 +149,5 @@ var Excel = React.createClass({
         });
     }
 });
+
+module.exports = Excel;
