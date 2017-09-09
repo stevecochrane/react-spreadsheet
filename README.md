@@ -7,6 +7,7 @@ expanded upon:
 
 * Added a Babel + Webpack bundling workflow.
 * Refactored to use ECMAScript 6 classes.
+* Converted to Preact with preact-compat.
 
 Here's how to get it running:
 
