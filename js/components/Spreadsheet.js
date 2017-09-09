@@ -1,6 +1,6 @@
 import React from "react";
 
-class Excel extends React.Component {
+class Spreadsheet extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -146,4 +146,4 @@ class Excel extends React.Component {
 	}
 }
 
-export default Excel;
+export default Spreadsheet;

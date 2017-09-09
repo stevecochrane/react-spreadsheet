@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Excel from "./components/Excel";
+import Spreadsheet from "./components/Spreadsheet";
 
 var headers = [
     "Book",
@@ -64,5 +64,5 @@ var data = [
 ];
 
 document.addEventListener("DOMContentLoaded", function(event) {
-	ReactDOM.render(<Excel headers={headers} initialData={data} />, document.getElementById("excel"));
+	ReactDOM.render(<Spreadsheet headers={headers} initialData={data} />, document.getElementById("spreadsheet"));
 });
