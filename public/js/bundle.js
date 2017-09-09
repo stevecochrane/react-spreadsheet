@@ -22406,171 +22406,212 @@ module.exports = ReactDOMInvalidARIAHook;
 "use strict";
 
 
-var React = __webpack_require__(49);
-
-var Excel = React.createClass({
-    displayName: "Excel",
-    propTypes: {
-        headers: React.PropTypes.arrayOf(React.PropTypes.string),
-        initialData: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string))
-    },
-    getInitialState: function getInitialState() {
-        return {
-            data: this.props.initialData,
-            sortby: null,
-            descending: false,
-            edit: null, // { row: index, cell: index }
-            search: false
-        };
-    },
-    render: function render() {
-        return React.createElement(
-            "div",
-            null,
-            this._renderToolbar(),
-            this._renderTable()
-        );
-    },
-    _preSearchData: null,
-    _renderToolbar: function _renderToolbar() {
-        return React.createElement(
-            "button",
-            { onClick: this._toggleSearch, className: "toolbar" },
-            "Search"
-        );
-    },
-    _renderSearch: function _renderSearch() {
-        if (!this.state.search) {
-            return null;
-        }
-        return React.createElement(
-            "tr",
-            { onChange: this._search },
-            this.props.headers.map(function (_ignore, index) {
-                return React.createElement(
-                    "td",
-                    { key: index },
-                    React.createElement("input", { type: "text", "data-index": index })
-                );
-            })
-        );
-    },
-    _renderTable: function _renderTable() {
-        return React.createElement(
-            "table",
-            null,
-            React.createElement(
-                "thead",
-                { onClick: this._sort },
-                React.createElement(
-                    "tr",
-                    null,
-                    this.props.headers.map(function (title, index) {
-                        if (this.state.sortby === index) {
-                            title += this.state.descending ? " \u2191" : " \u2193";
-                        }
-                        return React.createElement(
-                            "th",
-                            { key: index },
-                            title
-                        );
-                    }, this)
-                )
-            ),
-            React.createElement(
-                "tbody",
-                { onDoubleClick: this._showEditor },
-                this._renderSearch(),
-                this.state.data.map(function (row, rowIndex) {
-                    return React.createElement(
-                        "tr",
-                        { key: rowIndex },
-                        row.map(function (cell, index) {
-                            var content = cell;
-                            var edit = this.state.edit;
-                            if (edit && edit.row === rowIndex && edit.cell === index) {
-                                content = React.createElement(
-                                    "form",
-                                    { onSubmit: this._save },
-                                    React.createElement("input", { type: "text", defaultValue: content })
-                                );
-                            }
-                            return React.createElement(
-                                "td",
-                                { key: index, "data-row": rowIndex },
-                                content
-                            );
-                        }, this)
-                    );
-                }, this)
-            )
-        );
-    },
-    _sort: function _sort(ev) {
-        var column = ev.target.cellIndex;
-        var data = this.state.data.slice();
-        var descending = this.state.sortby === column && !this.state.descending;
-        data.sort(function (a, b) {
-            return descending ? a[column] < b[column] ? 1 : -1 : a[column] > b[column] ? 1 : -1;
-        });
-        this.setState({
-            data: data,
-            sortby: column,
-            descending: descending
-        });
-    },
-    _showEditor: function _showEditor(ev) {
-        this.setState({
-            edit: {
-                row: parseInt(ev.target.dataset.row, 10),
-                cell: ev.target.cellIndex
-            }
-        });
-    },
-    _save: function _save(ev) {
-        ev.preventDefault();
-        var input = ev.target.firstChild;
-        var data = this.state.data.slice();
-        data[this.state.edit.row][this.state.edit.cell] = input.value;
-        this.setState({
-            edit: null, // done editing
-            data: data
-        });
-    },
-    _toggleSearch: function _toggleSearch() {
-        if (this.state.search) {
-            this.setState({
-                data: this._preSearchData,
-                search: false
-            });
-            this._preSearchData = null;
-        } else {
-            this._preSearchData = this.state.data;
-            this.setState({
-                search: true
-            });
-        }
-    },
-    _search: function _search(ev) {
-        var needle = ev.target.value.toLowerCase();
-        if (!needle) {
-            //  the search string is deleted
-            this.setState({
-                data: this._preSearchData
-            });
-            return;
-        }
-        var index = ev.target.dataset.index; // which column to search
-        var searchData = this._preSearchData.filter(function (row) {
-            return row[index].toString().toLowerCase().indexOf(needle) > -1;
-        });
-        this.setState({
-            data: searchData
-        });
-    }
+Object.defineProperty(exports, "__esModule", {
+	value: true
 });
 
-module.exports = Excel;
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(49);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Excel = function (_Component) {
+	_inherits(Excel, _Component);
+
+	function Excel() {
+		_classCallCheck(this, Excel);
+
+		return _possibleConstructorReturn(this, (Excel.__proto__ || Object.getPrototypeOf(Excel)).apply(this, arguments));
+	}
+
+	_createClass(Excel, [{
+		key: "componentWillMount",
+		value: function componentWillMount() {
+			this.setState({
+				data: this.props.initialData,
+				sortby: null,
+				descending: false,
+				edit: null, // { row: index, cell: index }
+				search: false
+			});
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"div",
+				null,
+				this._renderToolbar(),
+				this._renderTable()
+			);
+		}
+	}, {
+		key: "_renderToolbar",
+		value: function _renderToolbar() {
+			return _react2.default.createElement(
+				"button",
+				{ onClick: this._toggleSearch.bind(this), className: "toolbar" },
+				"Search"
+			);
+		}
+	}, {
+		key: "_renderSearch",
+		value: function _renderSearch() {
+			if (!this.state.search) {
+				return null;
+			}
+			return _react2.default.createElement(
+				"tr",
+				{ onChange: this._search.bind(this) },
+				this.props.headers.map(function (_ignore, index) {
+					return _react2.default.createElement(
+						"td",
+						{ key: index },
+						_react2.default.createElement("input", { type: "text", "data-index": index })
+					);
+				})
+			);
+		}
+	}, {
+		key: "_renderTable",
+		value: function _renderTable() {
+			return _react2.default.createElement(
+				"table",
+				null,
+				_react2.default.createElement(
+					"thead",
+					{ onClick: this._sort.bind(this) },
+					_react2.default.createElement(
+						"tr",
+						null,
+						this.props.headers.map(function (title, index) {
+							if (this.state.sortby === index) {
+								title += this.state.descending ? " \u2191" : " \u2193";
+							}
+							return _react2.default.createElement(
+								"th",
+								{ key: index },
+								title
+							);
+						}, this)
+					)
+				),
+				_react2.default.createElement(
+					"tbody",
+					{ onDoubleClick: this._showEditor.bind(this) },
+					this._renderSearch(),
+					this.state.data.map(function (row, rowIndex) {
+						return _react2.default.createElement(
+							"tr",
+							{ key: rowIndex },
+							row.map(function (cell, index) {
+								var content = cell;
+								var edit = this.state.edit;
+								if (edit && edit.row === rowIndex && edit.cell === index) {
+									content = _react2.default.createElement(
+										"form",
+										{ onSubmit: this._save.bind(this) },
+										_react2.default.createElement("input", { type: "text", defaultValue: content })
+									);
+								}
+								return _react2.default.createElement(
+									"td",
+									{ key: index, "data-row": rowIndex },
+									content
+								);
+							}, this)
+						);
+					}, this)
+				)
+			);
+		}
+	}, {
+		key: "_sort",
+		value: function _sort(ev) {
+			var column = ev.target.cellIndex;
+			var data = this.state.data.slice();
+			var descending = this.state.sortby === column && !this.state.descending;
+			data.sort(function (a, b) {
+				return descending ? a[column] < b[column] ? 1 : -1 : a[column] > b[column] ? 1 : -1;
+			});
+			this.setState({
+				data: data,
+				sortby: column,
+				descending: descending
+			});
+		}
+	}, {
+		key: "_showEditor",
+		value: function _showEditor(ev) {
+			this.setState({
+				edit: {
+					row: parseInt(ev.target.dataset.row, 10),
+					cell: ev.target.cellIndex
+				}
+			});
+		}
+	}, {
+		key: "_save",
+		value: function _save(ev) {
+			ev.preventDefault();
+			var input = ev.target.firstChild;
+			var data = this.state.data.slice();
+			data[this.state.edit.row][this.state.edit.cell] = input.value;
+			this.setState({
+				edit: null, // done editing
+				data: data
+			});
+		}
+	}, {
+		key: "_toggleSearch",
+		value: function _toggleSearch(ev) {
+			if (this.state.search) {
+				this.setState({
+					data: this._preSearchData,
+					search: false
+				});
+				this._preSearchData = null;
+			} else {
+				this._preSearchData = this.state.data;
+				this.setState({
+					search: true
+				});
+			}
+		}
+	}, {
+		key: "_search",
+		value: function _search(ev) {
+			var needle = ev.target.value.toLowerCase();
+			if (!needle) {
+				//  the search string is deleted
+				this.setState({
+					data: this._preSearchData
+				});
+				return;
+			}
+			var index = ev.target.dataset.index; // which column to search
+			var searchData = this._preSearchData.filter(function (row) {
+				return row[index].toString().toLowerCase().indexOf(needle) > -1;
+			});
+			this.setState({
+				data: searchData
+			});
+		}
+	}]);
+
+	return Excel;
+}(_react.Component);
+
+exports.default = Excel;
 
 /***/ })
 /******/ ]);
