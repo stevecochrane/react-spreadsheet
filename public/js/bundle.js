@@ -22429,7 +22429,14 @@ var Excel = function (_React$Component) {
 	function Excel() {
 		_classCallCheck(this, Excel);
 
-		return _possibleConstructorReturn(this, (Excel.__proto__ || Object.getPrototypeOf(Excel)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (Excel.__proto__ || Object.getPrototypeOf(Excel)).call(this));
+
+		_this._toggleSearch = _this._toggleSearch.bind(_this);
+		_this._search = _this._search.bind(_this);
+		_this._sort = _this._sort.bind(_this);
+		_this._showEditor = _this._showEditor.bind(_this);
+		_this._save = _this._save.bind(_this);
+		return _this;
 	}
 
 	_createClass(Excel, [{
@@ -22458,7 +22465,7 @@ var Excel = function (_React$Component) {
 		value: function _renderToolbar() {
 			return _react2.default.createElement(
 				"button",
-				{ onClick: this._toggleSearch.bind(this), className: "toolbar" },
+				{ onClick: this._toggleSearch, className: "toolbar" },
 				"Search"
 			);
 		}
@@ -22470,7 +22477,7 @@ var Excel = function (_React$Component) {
 			}
 			return _react2.default.createElement(
 				"tr",
-				{ onChange: this._search.bind(this) },
+				{ onChange: this._search },
 				this.props.headers.map(function (_ignore, index) {
 					return _react2.default.createElement(
 						"td",
@@ -22488,7 +22495,7 @@ var Excel = function (_React$Component) {
 				null,
 				_react2.default.createElement(
 					"thead",
-					{ onClick: this._sort.bind(this) },
+					{ onClick: this._sort },
 					_react2.default.createElement(
 						"tr",
 						null,
@@ -22506,7 +22513,7 @@ var Excel = function (_React$Component) {
 				),
 				_react2.default.createElement(
 					"tbody",
-					{ onDoubleClick: this._showEditor.bind(this) },
+					{ onDoubleClick: this._showEditor },
 					this._renderSearch(),
 					this.state.data.map(function (row, rowIndex) {
 						return _react2.default.createElement(
@@ -22518,7 +22525,7 @@ var Excel = function (_React$Component) {
 								if (edit && edit.row === rowIndex && edit.cell === index) {
 									content = _react2.default.createElement(
 										"form",
-										{ onSubmit: this._save.bind(this) },
+										{ onSubmit: this._save },
 										_react2.default.createElement("input", { type: "text", defaultValue: content })
 									);
 								}
@@ -22572,7 +22579,7 @@ var Excel = function (_React$Component) {
 		}
 	}, {
 		key: "_toggleSearch",
-		value: function _toggleSearch(ev) {
+		value: function _toggleSearch() {
 			if (this.state.search) {
 				this.setState({
 					data: this._preSearchData,

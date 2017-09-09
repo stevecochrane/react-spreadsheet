@@ -1,6 +1,15 @@
 import React from "react";
 
 class Excel extends React.Component {
+	constructor() {
+		super();
+
+		this._toggleSearch = this._toggleSearch.bind(this);
+		this._search       = this._search.bind(this);
+		this._sort         = this._sort.bind(this);
+		this._showEditor   = this._showEditor.bind(this);
+		this._save         = this._save.bind(this)
+	}
 	componentWillMount() {
 		this.setState({
 			data: this.props.initialData,
@@ -20,7 +29,7 @@ class Excel extends React.Component {
 	}
 	_renderToolbar() {
 		return (
-			<button onClick={this._toggleSearch.bind(this)} className="toolbar">Search</button>
+			<button onClick={this._toggleSearch} className="toolbar">Search</button>
 		);
 	}
 	_renderSearch() {
@@ -28,7 +37,7 @@ class Excel extends React.Component {
 			return null;
 		}
 		return (
-			<tr onChange={this._search.bind(this)}>
+			<tr onChange={this._search}>
 				{this.props.headers.map(function(_ignore, index) {
 					return <td key={index}>
 						<input type="text" data-index={index} />
@@ -40,7 +49,7 @@ class Excel extends React.Component {
 	_renderTable() {
 		return (
 			<table>
-				<thead onClick={this._sort.bind(this)}>
+				<thead onClick={this._sort}>
 					<tr>
 						{this.props.headers.map(function(title, index) {
 							if (this.state.sortby === index) {
@@ -50,7 +59,7 @@ class Excel extends React.Component {
 						}, this)}
 					</tr>
 				</thead>
-				<tbody onDoubleClick={this._showEditor.bind(this)}>
+				<tbody onDoubleClick={this._showEditor}>
 					{this._renderSearch()}
 					{this.state.data.map(function(row, rowIndex) {
 						return (
@@ -59,7 +68,7 @@ class Excel extends React.Component {
 									var content = cell;
 									var edit = this.state.edit;
 									if (edit && edit.row === rowIndex && edit.cell === index) {
-										content = <form onSubmit={this._save.bind(this)}>
+										content = <form onSubmit={this._save}>
 											<input type="text" defaultValue={content} />
 										</form>;
 									}
@@ -105,7 +114,7 @@ class Excel extends React.Component {
 			data: data
 		});
 	}
-	_toggleSearch(ev) {
+	_toggleSearch() {
 		if (this.state.search) {
 			this.setState({
 				data: this._preSearchData,
