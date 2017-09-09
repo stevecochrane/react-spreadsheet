@@ -12,8 +12,8 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
     "jsx-loader": "^0.13.2",
     "preact": "^8.2.5",
     "preact-compat": "^3.17.0",
