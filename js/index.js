@@ -64,6 +64,5 @@ var data = [
 ];
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    console.log("hi");
 	ReactDOM.render(<Excel headers={headers} initialData={data} />, document.getElementById("excel"));
 });
