@@ -1,11 +1,11 @@
 {
-  "name": "preact-compat-spreadsheet",
+  "name": "react-spreadsheet",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "start": "node preact-compat-spreadsheet.js"
+    "start": "node react-spreadsheet.js"
   },
   "author": "",
   "license": "ISC",
