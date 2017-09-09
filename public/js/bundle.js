@@ -22436,21 +22436,18 @@ var Excel = function (_React$Component) {
 		_this._sort = _this._sort.bind(_this);
 		_this._showEditor = _this._showEditor.bind(_this);
 		_this._save = _this._save.bind(_this);
+
+		_this.state = {
+			data: props.initialData,
+			sortby: null,
+			descending: false,
+			edit: null, // { row: index, cell: index }
+			search: false
+		};
 		return _this;
 	}
 
 	_createClass(Excel, [{
-		key: "componentWillMount",
-		value: function componentWillMount() {
-			this.setState({
-				data: this.props.initialData,
-				sortby: null,
-				descending: false,
-				edit: null, // { row: index, cell: index }
-				search: false
-			});
-		}
-	}, {
 		key: "render",
 		value: function render() {
 			return _react2.default.createElement(

@@ -8,7 +8,7 @@ class Excel extends React.Component {
 		this._search       = this._search.bind(this);
 		this._sort         = this._sort.bind(this);
 		this._showEditor   = this._showEditor.bind(this);
-		this._save         = this._save.bind(this)
+		this._save         = this._save.bind(this);
 	}
 	componentWillMount() {
 		this.setState({
