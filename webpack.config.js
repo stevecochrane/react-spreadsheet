@@ -11,7 +11,7 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				loader: "jsx-loader"
+				use: "jsx-loader"
 			}
 		]
 	}
