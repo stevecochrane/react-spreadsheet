@@ -9750,10 +9750,19 @@ module.exports = getHostComponentFromComposite;
 "use strict";
 
 
-var React = __webpack_require__(49);
-var ReactDOM = __webpack_require__(98);
+var _react = __webpack_require__(49);
 
-var Excel = __webpack_require__(184);
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(98);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Excel = __webpack_require__(184);
+
+var _Excel2 = _interopRequireDefault(_Excel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var headers = ["Book", "Author", "Language", "Published", "Sales"];
 
@@ -9761,7 +9770,7 @@ var data = [["The Lord of the Rings", "J. R. R. Tolkien", "English", "1954-1955"
 
 document.addEventListener("DOMContentLoaded", function (event) {
     console.log("hi");
-    ReactDOM.render(React.createElement(Excel, { headers: headers, initialData: data }), document.getElementById("excel"));
+    _reactDom2.default.render(_react2.default.createElement(_Excel2.default, { headers: headers, initialData: data }), document.getElementById("excel"));
 });
 
 /***/ }),
@@ -22415,36 +22424,87 @@ var Excel = React.createClass({
         };
     },
     render: function render() {
-        return React.createElement("div", null, this._renderToolbar(), this._renderTable());
+        return React.createElement(
+            "div",
+            null,
+            this._renderToolbar(),
+            this._renderTable()
+        );
     },
     _preSearchData: null,
     _renderToolbar: function _renderToolbar() {
-        return React.createElement("button", { onClick: this._toggleSearch, className: "toolbar" }, "Search");
+        return React.createElement(
+            "button",
+            { onClick: this._toggleSearch, className: "toolbar" },
+            "Search"
+        );
     },
     _renderSearch: function _renderSearch() {
         if (!this.state.search) {
             return null;
         }
-        return React.createElement("tr", { onChange: this._search }, this.props.headers.map(function (_ignore, index) {
-            return React.createElement("td", { key: index }, React.createElement("input", { type: "text", "data-index": index }));
-        }));
+        return React.createElement(
+            "tr",
+            { onChange: this._search },
+            this.props.headers.map(function (_ignore, index) {
+                return React.createElement(
+                    "td",
+                    { key: index },
+                    React.createElement("input", { type: "text", "data-index": index })
+                );
+            })
+        );
     },
     _renderTable: function _renderTable() {
-        return React.createElement("table", null, React.createElement("thead", { onClick: this._sort }, React.createElement("tr", null, this.props.headers.map(function (title, index) {
-            if (this.state.sortby === index) {
-                title += this.state.descending ? " \u2191" : " \u2193";
-            }
-            return React.createElement("th", { key: index }, title);
-        }, this))), React.createElement("tbody", { onDoubleClick: this._showEditor }, this._renderSearch(), this.state.data.map(function (row, rowIndex) {
-            return React.createElement("tr", { key: rowIndex }, row.map(function (cell, index) {
-                var content = cell;
-                var edit = this.state.edit;
-                if (edit && edit.row === rowIndex && edit.cell === index) {
-                    content = React.createElement("form", { onSubmit: this._save }, React.createElement("input", { type: "text", defaultValue: content }));
-                }
-                return React.createElement("td", { key: index, "data-row": rowIndex }, content);
-            }, this));
-        }, this)));
+        return React.createElement(
+            "table",
+            null,
+            React.createElement(
+                "thead",
+                { onClick: this._sort },
+                React.createElement(
+                    "tr",
+                    null,
+                    this.props.headers.map(function (title, index) {
+                        if (this.state.sortby === index) {
+                            title += this.state.descending ? " \u2191" : " \u2193";
+                        }
+                        return React.createElement(
+                            "th",
+                            { key: index },
+                            title
+                        );
+                    }, this)
+                )
+            ),
+            React.createElement(
+                "tbody",
+                { onDoubleClick: this._showEditor },
+                this._renderSearch(),
+                this.state.data.map(function (row, rowIndex) {
+                    return React.createElement(
+                        "tr",
+                        { key: rowIndex },
+                        row.map(function (cell, index) {
+                            var content = cell;
+                            var edit = this.state.edit;
+                            if (edit && edit.row === rowIndex && edit.cell === index) {
+                                content = React.createElement(
+                                    "form",
+                                    { onSubmit: this._save },
+                                    React.createElement("input", { type: "text", defaultValue: content })
+                                );
+                            }
+                            return React.createElement(
+                                "td",
+                                { key: index, "data-row": rowIndex },
+                                content
+                            );
+                        }, this)
+                    );
+                }, this)
+            )
+        );
     },
     _sort: function _sort(ev) {
         var column = ev.target.cellIndex;
