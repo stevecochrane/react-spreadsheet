@@ -9747,76 +9747,22 @@ module.exports = getHostComponentFromComposite;
 /* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 var React = __webpack_require__(49);
 var ReactDOM = __webpack_require__(98);
 
 var Excel = __webpack_require__(184);
 
-var headers = [
-    "Book",
-    "Author",
-    "Language",
-    "Published",
-    "Sales"
-];
+var headers = ["Book", "Author", "Language", "Published", "Sales"];
 
-var data = [
-    [
-        "The Lord of the Rings",
-        "J. R. R. Tolkien",
-        "English",
-        "1954-1955",
-        "150 million"
-    ],
-    [
-        "Le Petit Prince (The Little Prince)",
-        "Antoine de Saint-Exupery",
-        "French",
-        "1943",
-        "140 million"
-    ],
-    [
-        "Harry Potter and the Philosopher's Stone",
-        "J. K. Rowling",
-        "English",
-        "1997",
-        "107 million"
-    ],
-    [
-        "And Then There Were None",
-        "Agatha Christie",
-        "English",
-        "1939",
-        "100 million"
-    ],
-    [
-        "Dream of the Red Chamber",
-        "Cao Xueqin",
-        "Chinese",
-        "1754-1791",
-        "100 million"
-    ],
-    [
-        "The Hobbit",
-        "J. R. R. Tolkien",
-        "English",
-        "1937",
-        "100 million"
-    ],
-    [
-        "She: A History of Adventure",
-        "H. Rider Haggard",
-        "English",
-        "1887",
-        "100 million"
-    ]
-];
+var data = [["The Lord of the Rings", "J. R. R. Tolkien", "English", "1954-1955", "150 million"], ["Le Petit Prince (The Little Prince)", "Antoine de Saint-Exupery", "French", "1943", "140 million"], ["Harry Potter and the Philosopher's Stone", "J. K. Rowling", "English", "1997", "107 million"], ["And Then There Were None", "Agatha Christie", "English", "1939", "100 million"], ["Dream of the Red Chamber", "Cao Xueqin", "Chinese", "1754-1791", "100 million"], ["The Hobbit", "J. R. R. Tolkien", "English", "1937", "100 million"], ["She: A History of Adventure", "H. Rider Haggard", "English", "1887", "100 million"]];
 
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
     console.log("hi");
-	ReactDOM.render(React.createElement(Excel, {headers: headers, initialData: data}), document.getElementById("excel"));
+    ReactDOM.render(React.createElement(Excel, { headers: headers, initialData: data }), document.getElementById("excel"));
 });
-
 
 /***/ }),
 /* 83 */
@@ -22448,21 +22394,18 @@ module.exports = ReactDOMInvalidARIAHook;
 /* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
 var React = __webpack_require__(49);
 
-var Excel =  React.createClass({
+var Excel = React.createClass({
     displayName: "Excel",
     propTypes: {
-        headers: React.PropTypes.arrayOf(
-            React.PropTypes.string
-        ),
-        initialData: React.PropTypes.arrayOf(
-            React.PropTypes.arrayOf(
-                React.PropTypes.string
-            )
-        )
+        headers: React.PropTypes.arrayOf(React.PropTypes.string),
+        initialData: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string))
     },
-    getInitialState: function() {
+    getInitialState: function getInitialState() {
         return {
             data: this.props.initialData,
             sortby: null,
@@ -22471,77 +22414,44 @@ var Excel =  React.createClass({
             search: false
         };
     },
-    render: function() {
-        return (
-            React.createElement("div", null, 
-                this._renderToolbar(), 
-                this._renderTable()
-            )
-        );
+    render: function render() {
+        return React.createElement("div", null, this._renderToolbar(), this._renderTable());
     },
     _preSearchData: null,
-    _renderToolbar: function() {
-        return (
-            React.createElement("button", {onClick: this._toggleSearch, className: "toolbar"}, "Search")
-        );
+    _renderToolbar: function _renderToolbar() {
+        return React.createElement("button", { onClick: this._toggleSearch, className: "toolbar" }, "Search");
     },
-    _renderSearch: function() {
+    _renderSearch: function _renderSearch() {
         if (!this.state.search) {
             return null;
         }
-        return (
-            React.createElement("tr", {onChange: this._search}, 
-                this.props.headers.map(function(_ignore, index) {
-                    return React.createElement("td", {key: index}, 
-                        React.createElement("input", {type: "text", "data-index": index})
-                    );
-                })
-            )
-        );
+        return React.createElement("tr", { onChange: this._search }, this.props.headers.map(function (_ignore, index) {
+            return React.createElement("td", { key: index }, React.createElement("input", { type: "text", "data-index": index }));
+        }));
     },
-    _renderTable: function() {
-        return (
-            React.createElement("table", null, 
-                React.createElement("thead", {onClick: this._sort}, 
-                    React.createElement("tr", null, 
-                        this.props.headers.map(function(title, index) {
-                            if (this.state.sortby === index) {
-                                title += this.state.descending ? " \u2191" : " \u2193";
-                            }
-                            return React.createElement("th", {key: index}, title);
-                        }, this)
-                    )
-                ), 
-                React.createElement("tbody", {onDoubleClick: this._showEditor}, 
-                    this._renderSearch(), 
-                    this.state.data.map(function(row, rowIndex) {
-                        return (
-                            React.createElement("tr", {key: rowIndex}, 
-                                row.map(function(cell, index) {
-                                    var content = cell;
-                                    var edit = this.state.edit;
-                                    if (edit && edit.row === rowIndex && edit.cell === index) {
-                                        content = React.createElement("form", {onSubmit: this._save}, 
-                                            React.createElement("input", {type: "text", defaultValue: content})
-                                        );
-                                    }
-                                    return React.createElement("td", {key: index, "data-row": rowIndex}, 
-                                        content
-                                    );
-                                }, this)
-                            )
-                        );
-                    }, this)
-                )
-            )
-        );
+    _renderTable: function _renderTable() {
+        return React.createElement("table", null, React.createElement("thead", { onClick: this._sort }, React.createElement("tr", null, this.props.headers.map(function (title, index) {
+            if (this.state.sortby === index) {
+                title += this.state.descending ? " \u2191" : " \u2193";
+            }
+            return React.createElement("th", { key: index }, title);
+        }, this))), React.createElement("tbody", { onDoubleClick: this._showEditor }, this._renderSearch(), this.state.data.map(function (row, rowIndex) {
+            return React.createElement("tr", { key: rowIndex }, row.map(function (cell, index) {
+                var content = cell;
+                var edit = this.state.edit;
+                if (edit && edit.row === rowIndex && edit.cell === index) {
+                    content = React.createElement("form", { onSubmit: this._save }, React.createElement("input", { type: "text", defaultValue: content }));
+                }
+                return React.createElement("td", { key: index, "data-row": rowIndex }, content);
+            }, this));
+        }, this)));
     },
-    _sort: function(ev) {
+    _sort: function _sort(ev) {
         var column = ev.target.cellIndex;
         var data = this.state.data.slice();
         var descending = this.state.sortby === column && !this.state.descending;
-        data.sort(function(a, b) {
-            return descending ? (a[column] < b[column] ? 1 : -1) : (a[column] > b[column] ? 1 : -1);
+        data.sort(function (a, b) {
+            return descending ? a[column] < b[column] ? 1 : -1 : a[column] > b[column] ? 1 : -1;
         });
         this.setState({
             data: data,
@@ -22549,7 +22459,7 @@ var Excel =  React.createClass({
             descending: descending
         });
     },
-    _showEditor: function(ev) {
+    _showEditor: function _showEditor(ev) {
         this.setState({
             edit: {
                 row: parseInt(ev.target.dataset.row, 10),
@@ -22557,7 +22467,7 @@ var Excel =  React.createClass({
             }
         });
     },
-    _save: function(ev) {
+    _save: function _save(ev) {
         ev.preventDefault();
         var input = ev.target.firstChild;
         var data = this.state.data.slice();
@@ -22567,7 +22477,7 @@ var Excel =  React.createClass({
             data: data
         });
     },
-    _toggleSearch: function() {
+    _toggleSearch: function _toggleSearch() {
         if (this.state.search) {
             this.setState({
                 data: this._preSearchData,
@@ -22581,7 +22491,7 @@ var Excel =  React.createClass({
             });
         }
     },
-    _search: function(ev) {
+    _search: function _search(ev) {
         var needle = ev.target.value.toLowerCase();
         if (!needle) {
             //  the search string is deleted
@@ -22591,7 +22501,7 @@ var Excel =  React.createClass({
             return;
         }
         var index = ev.target.dataset.index; // which column to search
-        var searchData = this._preSearchData.filter(function(row) {
+        var searchData = this._preSearchData.filter(function (row) {
             return row[index].toString().toLowerCase().indexOf(needle) > -1;
         });
         this.setState({
@@ -22601,7 +22511,6 @@ var Excel =  React.createClass({
 });
 
 module.exports = Excel;
-
 
 /***/ })
 /******/ ]);
