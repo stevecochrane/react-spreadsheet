@@ -16,3 +16,7 @@ npm install
 npm run build
 npm start
 ```
+
+In the app you can click the Search button and enter some text for a live
+search, double-click table cells to edit their contents, and click on column
+header cells to sort that column.
