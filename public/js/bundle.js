@@ -9769,7 +9769,6 @@ var headers = ["Book", "Author", "Language", "Published", "Sales"];
 var data = [["The Lord of the Rings", "J. R. R. Tolkien", "English", "1954-1955", "150 million"], ["Le Petit Prince (The Little Prince)", "Antoine de Saint-Exupery", "French", "1943", "140 million"], ["Harry Potter and the Philosopher's Stone", "J. K. Rowling", "English", "1997", "107 million"], ["And Then There Were None", "Agatha Christie", "English", "1939", "100 million"], ["Dream of the Red Chamber", "Cao Xueqin", "Chinese", "1754-1791", "100 million"], ["The Hobbit", "J. R. R. Tolkien", "English", "1937", "100 million"], ["She: A History of Adventure", "H. Rider Haggard", "English", "1887", "100 million"]];
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    console.log("hi");
     _reactDom2.default.render(_react2.default.createElement(_Excel2.default, { headers: headers, initialData: data }), document.getElementById("excel"));
 });
 
@@ -22424,8 +22423,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Excel = function (_Component) {
-	_inherits(Excel, _Component);
+var Excel = function (_React$Component) {
+	_inherits(Excel, _React$Component);
 
 	function Excel() {
 		_classCallCheck(this, Excel);
@@ -22609,7 +22608,7 @@ var Excel = function (_Component) {
 	}]);
 
 	return Excel;
-}(_react.Component);
+}(_react2.default.Component);
 
 exports.default = Excel;
 

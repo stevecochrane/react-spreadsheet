@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Excel extends Component {
+class Excel extends React.Component {
 	componentWillMount() {
 		this.setState({
 			data: this.props.initialData,
