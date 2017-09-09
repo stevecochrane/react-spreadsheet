@@ -22426,10 +22426,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Excel = function (_React$Component) {
 	_inherits(Excel, _React$Component);
 
-	function Excel() {
+	function Excel(props) {
 		_classCallCheck(this, Excel);
 
-		var _this = _possibleConstructorReturn(this, (Excel.__proto__ || Object.getPrototypeOf(Excel)).call(this));
+		var _this = _possibleConstructorReturn(this, (Excel.__proto__ || Object.getPrototypeOf(Excel)).call(this, props));
 
 		_this._toggleSearch = _this._toggleSearch.bind(_this);
 		_this._search = _this._search.bind(_this);

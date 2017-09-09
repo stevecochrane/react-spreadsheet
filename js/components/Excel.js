@@ -1,23 +1,22 @@
 import React from "react";
 
 class Excel extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this._toggleSearch = this._toggleSearch.bind(this);
 		this._search       = this._search.bind(this);
 		this._sort         = this._sort.bind(this);
 		this._showEditor   = this._showEditor.bind(this);
 		this._save         = this._save.bind(this);
-	}
-	componentWillMount() {
-		this.setState({
-			data: this.props.initialData,
+
+		this.state = {
+			data: props.initialData,
 			sortby: null,
 			descending: false,
 			edit: null, // { row: index, cell: index }
 			search: false
-		});
+		};
 	}
 	render() {
 		return (
